@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-PT"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NubleLariOS</title>
+<style>
+:root{--a:#a855f7;--b:#6d28d9;--bg:#0a0714;--p:#150f26;--p2:#1e1636;--bd:#2d2250;--t:#f1ecff;--m:#9a8fc0;--g:#55e6a5;--r:#ff718b}
+body.sing{--a:#fb923c;--b:#c2410c;--bg:#0f0a06;--p:#241508;--p2:#33200d;--bd:#4d3216;--m:#c0a58f}
+*{box-sizing:border-box}body{margin:0;height:100vh;overflow:hidden;background:var(--bg);color:var(--t);font:14px 'Segoe UI',system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:var(--t)}button{cursor:pointer}.hid{display:none!important}
+svg.lg{display:block}
+#login{height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,color-mix(in srgb,var(--a) 35%,transparent),transparent 50%),radial-gradient(circle at 80% 85%,color-mix(in srgb,var(--b) 40%,transparent),transparent 50%),var(--bg)}
+.lbox{width:340px;background:var(--p);border:1px solid var(--bd);border-radius:20px;padding:30px;text-align:center}
+.lbox svg{width:72px;margin:0 auto 10px}.lbox h1{margin:0 0 4px;font-size:24px}.lbox h1 span{color:var(--a)}.lbox p{color:var(--m);margin:0 0 18px;font-size:12px}
+input,select,textarea{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;outline:none}input:focus,textarea:focus{border-color:var(--a)}
+.lbox input{width:100%;margin-bottom:10px}
+.btn{background:linear-gradient(120deg,var(--a),var(--b));border:0;border-radius:10px;padding:10px 14px;font-weight:600;color:#fff}.btn:disabled{opacity:.5}
+.btn2{background:var(--p2);border:1px solid var(--bd);border-radius:8px;padding:6px 10px}.btn2:hover{border-color:var(--a)}
+#desk{position:fixed;inset:0 0 48px 0;background:radial-gradient(ellipse at 25% 15%,color-mix(in srgb,var(--a) 30%,transparent),transparent 55%),radial-gradient(ellipse at 85% 90%,color-mix(in srgb,var(--b) 40%,transparent),transparent 55%),var(--bg)}
+#icons{display:flex;flex-direction:column;flex-wrap:wrap;height:100%;align-content:flex-start;gap:6px;padding:12px}
+.di{width:84px;padding:8px 4px;text-align:center;border-radius:10px;cursor:pointer;font-size:12px}.di:hover{background:#ffffff18}.di i{display:block;font-style:normal;font-size:32px}
+.win{position:absolute;display:flex;flex-direction:column;background:var(--p);border:1px solid var(--bd);border-radius:12px;box-shadow:0 20px 60px #0009;resize:both;overflow:hidden;min-width:260px;min-height:160px}
+.win.max{inset:0!important;width:auto!important;height:auto!important;border-radius:0}.win.foc{border-color:var(--a)}
+.tb{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--p2);cursor:move;touch-action:none}.tb b{flex:1;font-size:13px;font-weight:600}
+.tb button{background:none;border:0;width:26px;height:22px;border-radius:6px}.tb button:hover{background:#ffffff22}.tb .x:hover{background:var(--r)}
+.wb{flex:1;overflow:auto;min-height:0;display:flex;flex-direction:column}
+#task{position:fixed;left:0;right:0;bottom:0;height:48px;background:var(--p);border-top:1px solid var(--bd);display:flex;align-items:center;gap:6px;padding:0 8px;z-index:99999}
+#sb{background:none;border:0;padding:4px;border-radius:8px}#sb:hover{background:#ffffff18}#sb svg{width:32px}
+#tl{flex:1;display:flex;gap:4px;overflow:hidden}.tk{background:var(--p2);border:1px solid var(--bd);border-radius:8px;padding:5px 10px;max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.tk.on{border-color:var(--a)}
+#tray{display:flex;gap:12px;align-items:center;font-size:12px}#bal{cursor:pointer;color:var(--g);font-weight:600}
+#start{position:fixed;left:8px;bottom:56px;width:300px;background:var(--p);border:1px solid var(--bd);border-radius:14px;padding:10px;z-index:99999}
+#start .u{padding:8px;border-bottom:1px solid var(--bd);margin-bottom:6px}#start .u small{color:var(--m);display:block}
+.si{display:flex;gap:10px;align-items:center;width:100%;background:none;border:0;padding:8px;border-radius:8px;text-align:left}.si:hover{background:#ffffff18}
+.tm{background:#05030a;font:13px Consolas,monospace;padding:8px;flex:1;display:flex;flex-direction:column;min-height:0}.tm pre{margin:0;flex:1;overflow:auto;white-space:pre-wrap;color:#d9ccff;user-select:text}
+.tm .in{display:flex}.tm .in input{flex:1;background:none;border:0;padding:0 0 0 4px;font:inherit}.tm .ps{color:var(--g)}
+textarea.ed{flex:1;border:0;border-radius:0;resize:none;font:13px Consolas,monospace;tab-size:2}
+.bar{display:flex;gap:6px;padding:6px;border-bottom:1px solid var(--bd);align-items:center}.bar input{flex:1}
+.calc{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px;flex:1}.calc .dp{grid-column:1/5;background:var(--bg);border-radius:10px;padding:12px;text-align:right;font-size:26px;overflow:hidden}.calc button{background:var(--p2);border:1px solid var(--bd);border-radius:10px;font-size:18px}.calc button:hover{border-color:var(--a)}.calc .op{color:var(--a)}
+.fl{flex:1;overflow:auto;padding:6px}.fi{display:flex;gap:8px;padding:6px 10px;border-radius:8px;cursor:pointer}.fi:hover{background:#ffffff14}.fi.sel{background:color-mix(in srgb,var(--a) 30%,transparent)}
+.sth{display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bd)}.sth span{color:var(--g)}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:12px}.sc{background:var(--p2);border:1px solid var(--bd);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}.sc .ic{font-size:30px}.sc small{color:var(--m);flex:1}
+.pad{padding:14px;display:grid;gap:12px;align-content:start}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+canvas{background:#05030a;border-radius:8px;max-width:100%}
+.tk2{display:flex;gap:8px;padding:6px;align-items:center}.tk2.d span{text-decoration:line-through;color:var(--m)}
+#toast{position:fixed;right:14px;bottom:60px;display:grid;gap:8px;z-index:999999}.ts{background:var(--p2);border:1px solid var(--a);border-radius:10px;padding:10px 14px;max-width:280px}.ts small{display:block;color:var(--m)}
+#boot{position:fixed;inset:0;background:#000;color:#cfc4ff;font:15px Consolas,monospace;padding:24px;overflow:auto;z-index:1000000}#boot pre{margin:0;white-space:pre-wrap}#boot .in{display:flex}#boot input{flex:1;background:none;border:0;padding:0;color:#fff;font:inherit;outline:none}
+#oobe{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,color-mix(in srgb,var(--a) 35%,transparent),transparent 50%),radial-gradient(circle at 80% 85%,color-mix(in srgb,var(--b) 40%,transparent),transparent 50%),var(--bg)}
+.obox{width:min(440px,94vw);background:var(--p);border:1px solid var(--bd);border-radius:20px;padding:30px;display:grid;gap:12px}.obox svg{width:64px}.obox h2{margin:0}.obox p{margin:0;color:var(--m)}.obox input:not([type=checkbox]){width:100%}.dots{display:flex;gap:6px}.dots i{height:4px;flex:1;background:var(--bd);border-radius:4px}.dots i.on{background:var(--a)}.ck{display:flex;gap:8px;align-items:center}
+#start{max-height:72vh;overflow:auto}.pad label{display:grid;gap:4px;color:var(--m);font-size:12px}.gg{display:grid;gap:6px;padding:10px}.gg button{height:64px;font-size:28px;background:var(--p2);border:1px solid var(--bd);border-radius:10px}.gg button:disabled{opacity:.6}
+</style></head><body>
+<div id="login" class="hid"><form class="lbox" id="lf"><div id="llogo"></div><h1>Nuble<span>Lari</span>OS</h1><p>Entra com a tua conta do banco NubleLari</p>
+<input id="lu" placeholder="Nome de utilizador" autocomplete="username"><input id="lp" type="password" placeholder="Palavra-passe" autocomplete="current-password"><button class="btn" style="width:100%" id="lb">Entrar</button></form></div>
+<div id="boot" class="hid"><pre id="bo"></pre><div class="in"><span>nuble-setup&gt;&nbsp;</span><input id="bi" spellcheck="false" autocomplete="off"></div></div>
+<div id="oobe" class="hid"></div>
+<div id="os" class="hid"><div id="desk"><div id="icons"></div></div>
+<div id="start" class="hid"></div>
+<div id="task"><button id="sb"></button><div id="tl"></div><div id="tray"><span id="bal" title="Abrir a Store"></span><span id="clk"></span></div></div></div>
+<div id="toast"></div>
+<script>
+const SU="https://itjfyixcrwvstncnoxts.supabase.co",SK="sb_publishable_Ne9bppUscqCxkvEvTzMIbw_3Oig9eil";
+const $=s=>document.querySelector(s),esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=v=>String(v||"").trim().toLowerCase(),eur=v=>Number(v||0).toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
+const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
+const LOGO='<svg class="lg" viewBox="0 0 512 512"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--a)"/><stop offset="1" stop-color="var(--b)"/></linearGradient></defs><rect width="512" height="512" rx="120" fill="url(#lg)"/><ellipse cx="256" cy="256" rx="215" ry="85" transform="rotate(-18 256 256)" fill="none" stroke="#fff" stroke-width="30"/><circle cx="256" cy="256" r="95" fill="#08060f" stroke="#fff" stroke-width="22"/><circle cx="256" cy="256" r="30" fill="#e8e8e8"/></svg>';
+$("#llogo").innerHTML=LOGO;$("#sb").innerHTML=LOGO;
+async function sb(path,o={}){const h={apikey:SK,"Content-Type":"application/json"};if(o.prefer)h.Prefer=o.prefer;
+ const r=await fetch(SU+"/rest/v1/"+path,{method:o.method||"GET",headers:h,body:o.body!==undefined?JSON.stringify(o.body):undefined});
+ const t=await r.text();if(!r.ok)throw new Error(t||r.status);return t?JSON.parse(t):null}
+async function hash(u,p){const d=new TextEncoder().encode("mindbank:"+norm(u)+":"+p);return[...new Uint8Array(await crypto.subtle.digest("SHA-256",d))].map(b=>b.toString(16).padStart(2,"0")).join("")}
+function toast(t,m){const e=document.createElement("div");e.className="ts";e.innerHTML="<b>"+esc(t)+"</b><small>"+esc(m||"")+"</small>";$("#toast").append(e);setTimeout(()=>e.remove(),4000)}
+const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},SS=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+let U=null,own=new Set(),FS=null,wins=[],zi=10,cfg={};
+const UC="id,username,display_name,np,balance,frozen";
+
+/* ---------- apps ---------- */
+const APPS={
+ term:{n:"Terminal",i:"⌨️",sys:1,w:580,h:360,f:appTerm},
+ store:{n:"Store",i:"🛍️",sys:1,w:620,h:460,f:appStore},
+ notes:{n:"Bloco de notas",i:"📝",sys:1,w:520,h:380,f:appNotes},
+ files:{n:"Ficheiros",i:"📁",sys:1,w:560,h:400,f:appFiles},
+ set:{n:"Definições",i:"⚙️",sys:1,w:480,h:420,f:appSet},
+ calc:{n:"Calculadora",i:"🧮",sys:1,w:290,h:400,f:appCalc},
+ web:{n:"Browser",i:"🌐",sys:1,w:820,h:520,f:appWeb},
+ snake:{n:"Snake",i:"🐍",price:0,d:"Jogo clássico. Setas para mexer.",w:340,h:400,f:appSnake},
+ tasks:{n:"Tarefas",i:"✅",price:0,d:"Lista de tarefas simples.",w:340,h:420,f:appTasks},
+ paint:{n:"Paint",i:"🎨",price:4.5,d:"Desenha e guarda em PNG.",w:580,h:460,f:appPaint},
+ code:{n:"Editor de Código",i:"💻",price:9.99,d:"Escreve e corre JavaScript.",w:640,h:460,f:appCode}
+};
+const installed=()=>Object.keys(APPS).filter(k=>APPS[k].sys||own.has(k));
+
+/* ---------- janelas ---------- */
+function openApp(k,arg){const a=APPS[k];if(!a||!(a.sys||own.has(k)))return toast("App não instalada","Instala-a na Store.");
+ const el=document.createElement("div"),n=wins.length%8;el.className="win";
+ el.style.cssText=`left:${90+n*28}px;top:${40+n*28}px;width:${Math.min(a.w,innerWidth-20)}px;height:${Math.min(a.h,innerHeight-70)}px`;
+ el.innerHTML=`<div class="tb"><span>${a.i}</span><b>${a.n}</b><button class="mi">–</button><button class="mx">▢</button><button class="x">✕</button></div><div class="wb"></div>`;
+ const w={el,k,cl:[],tk:document.createElement("button")};w.tk.className="tk";w.tk.textContent=a.i+" "+a.n;
+ const foc=()=>{el.style.zIndex=++zi;el.classList.remove("hid");wins.forEach(x=>{x.el.classList.toggle("foc",x===w);x.tk.classList.toggle("on",x===w)})};w.foc=foc;
+ const close=()=>{w.cl.forEach(f=>f());el.remove();w.tk.remove();wins=wins.filter(x=>x!==w)};
+ el.onpointerdown=foc;
+ w.tk.onclick=()=>{if(el.classList.contains("hid")||!el.classList.contains("foc"))foc();else el.classList.add("hid")};
+ el.querySelector(".mi").onclick=()=>{el.classList.add("hid");w.tk.classList.remove("on")};
+ el.querySelector(".mx").onclick=()=>el.classList.toggle("max");el.querySelector(".x").onclick=close;
+ const tb=el.querySelector(".tb");tb.ondblclick=()=>el.classList.toggle("max");
+ tb.onpointerdown=e=>{if(e.target.closest("button")||el.classList.contains("max"))return;const r=el.getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;
+  const mv=v=>{el.style.left=Math.max(0,Math.min(innerWidth-60,v.clientX-dx))+"px";el.style.top=Math.max(0,Math.min(innerHeight-90,v.clientY-dy))+"px"};
+  const up=()=>{removeEventListener("pointermove",mv);removeEventListener("pointerup",up)};addEventListener("pointermove",mv);addEventListener("pointerup",up)};
+ $("#desk").append(el);$("#tl").append(w.tk);wins.push(w);foc();
+ try{a.f(el.querySelector(".wb"),w,arg)}catch(e){console.error(e);el.querySelector(".wb").textContent="Erro na app: "+e.message}
+ $("#start").classList.add("hid");return w}
+
+/* ---------- ficheiros virtuais ---------- */
+const fkey=()=>"nlos_fs_"+U.id,saveFS=()=>SS(fkey(),FS);
+function initFS(){FS=LS(fkey(),null)||{t:"d",c:{Documentos:{t:"d",c:{"bem-vindo.txt":{t:"f",d:"Bem-vindo ao NubleLariOS!\nA tua conta é a do banco NubleLari."}}},Imagens:{t:"d",c:{}},Programas:{t:"d",c:{}}}}}
+const rs=(p,cwd)=>{const o=p.startsWith("/")?[]:cwd.slice();p.split("/").forEach(s=>{if(!s||s===".")return;s===".."?o.pop():o.push(s)});return o};
+const nd=ps=>{let n=FS;for(const s of ps){if(!n||n.t!=="d")return null;n=n.c[s]}return n||null};
+function fsWrite(ps,d){const p=nd(ps.slice(0,-1));if(!p||p.t!=="d"||!ps.length)return false;p.c[ps[ps.length-1]]={t:"f",d};saveFS();return true}
+function fsMk(ps){const p=nd(ps.slice(0,-1));if(!p||p.t!=="d"||!ps.length||p.c[ps[ps.length-1]])return false;p.c[ps[ps.length-1]]={t:"d",c:{}};saveFS();return true}
+function fsRm(ps){const p=nd(ps.slice(0,-1));if(!p||!ps.length||!p.c[ps[ps.length-1]])return false;delete p.c[ps[ps.length-1]];saveFS();return true}
+
+/* ---------- Terminal ---------- */
+function appTerm(b,w){b.innerHTML='<div class="tm"><pre></pre><div class="in"><span class="ps"></span><input spellcheck="false" autocomplete="off"></div></div>';
+ const out=b.querySelector("pre"),inp=b.querySelector("input"),ps=b.querySelector(".ps");let cwd=[],hs=[],hi=0;
+ const pr=t=>{out.textContent+=t+"\n";out.scrollTop=1e9},upd=()=>ps.textContent=U.username+"@"+(cfg.pc||"nuble").toLowerCase()+":/"+cwd.join("/")+"$ ";upd();
+ pr('NubleLariOS Terminal. Escreve "help".');b.onclick=()=>inp.focus();setTimeout(()=>inp.focus(),50);
+ inp.onkeydown=async e=>{
+  if(e.key==="ArrowUp"&&hs.length){hi=Math.max(0,hi-1);inp.value=hs[hi];e.preventDefault();return}
+  if(e.key==="ArrowDown"){hi=Math.min(hs.length,hi+1);inp.value=hs[hi]||"";return}
+  if(e.key!=="Enter")return;const line=inp.value.trim();inp.value="";pr(ps.textContent+line);if(!line)return;hs.push(line);hi=hs.length;
+  let [c,...ar]=line.split(/\s+/);const rest=ar.join(" ");
+  switch(c){
+   case"help":pr("help ls cd pwd cat mkdir touch rm echo clear whoami date saldo apps open neofetch");break;
+   case"ls":{const n=nd(ar[0]?rs(ar[0],cwd):cwd);n&&n.t==="d"?pr(Object.keys(n.c).map(k=>k+(n.c[k].t==="d"?"/":"")).join("  ")||"(vazio)"):pr("ls: pasta inválida");break}
+   case"cd":{const p=rs(ar[0]||"/",cwd),n=nd(p);n&&n.t==="d"?(cwd=p,upd()):pr("cd: pasta não existe");break}
+   case"pwd":pr("/"+cwd.join("/"));break;
+   case"cat":{const n=nd(rs(ar[0]||"",cwd));n&&n.t==="f"?pr(n.d):pr("cat: ficheiro não existe");break}
+   case"mkdir":fsMk(rs(ar[0]||"",cwd))||pr("mkdir: não foi possível");break;
+   case"touch":{const p=rs(ar[0]||"",cwd);nd(p)||fsWrite(p,"")||pr("touch: não foi possível");break}
+   case"rm":fsRm(rs(ar[0]||"",cwd))||pr("rm: não existe");break;
+   case"echo":{const i=rest.indexOf(">");if(i<0)pr(rest);else fsWrite(rs(rest.slice(i+1).trim(),cwd),rest.slice(0,i).trim())||pr("echo: erro")}break;
+   case"clear":out.textContent="";break;
+   case"whoami":pr(U.username+" ("+U.display_name+") NP "+U.np);break;
+   case"date":pr(new Date().toLocaleString("pt-PT"));break;
+   case"saldo":await refreshBal();pr(eur(U.balance));break;
+   case"apps":pr(installed().map(k=>k+" - "+APPS[k].n).join("\n"));break;
+   case"open":APPS[ar[0]]?openApp(ar[0]):pr("open: app desconhecida (usa 'apps')");break;
+   case"neofetch":pr("NubleLariOS 1.0\nUser: "+U.username+"\nApps: "+installed().length+"\nSaldo: "+eur(U.balance));break;
+   default:pr(c+": comando não encontrado")}}}
+
+/* ---------- Bloco de notas / Código ---------- */
+function editor(b,w,arg,run){let path=arg||null;b.innerHTML=`<div class="bar"><button class="btn2" data-a="s">💾 Guardar</button>${run?'<button class="btn2" data-a="r">▶ Correr</button><select><option value="auto">Auto</option><option value="py">Python</option><option value="js">JavaScript</option></select>':""}<span style="color:var(--m)" class="pt"></span></div><textarea class="ed" spellcheck="false"></textarea>${run?'<pre class="tm" style="flex:0 0 110px;margin:0;overflow:auto;white-space:pre-wrap"></pre>':""}`;
+ const ta=b.querySelector("textarea"),pt=b.querySelector(".pt"),lab=()=>pt.textContent=path||"sem nome";lab();
+ if(path){const n=nd(rs(path,[]));if(n&&n.t==="f")ta.value=n.d}
+ const save=()=>{if(!path){const p=prompt("Guardar como (ex: /Documentos/nota"+(run?".js":".txt")+")","/Documentos/nota"+(run?".js":".txt"));if(!p)return;path=p}
+  fsWrite(rs(path,[]),ta.value)?(toast("Guardado",path),lab()):(toast("Erro","A pasta não existe."),path=null)};
+ ta.onkeydown=e=>{if(e.ctrlKey&&e.key==="s"){e.preventDefault();save()}};
+ b.querySelector('[data-a="s"]').onclick=save;
+ if(run)b.querySelector('[data-a="r"]').onclick=async()=>{const o=b.querySelector("pre"),code=ta.value,l=b.querySelector("select").value,py=l==="py"||(l==="auto"&&(/\.py$/.test(path||"")||/^\s*(from\s+\w+\s+import|import\s+[\w, ]+\s*$|def\s+\w+\(.*\)\s*:|print\()/m.test(code)));
+ const lg=(...a)=>{o.textContent+=a.map(x=>typeof x==="object"?JSON.stringify(x):x).join(" ")+"\n";o.scrollTop=1e9};o.textContent="";
+ if(py){try{lg("A carregar Python (a primeira vez demora um pouco)…");const p=await loadPy();o.textContent="";p.setStdout({batched:t=>lg(t)});p.setStderr({batched:t=>lg(t)});const r=await p.runPythonAsync(code);if(r!==undefined)lg("→",String(r))}catch(e){lg("Erro:",String(e.message||e).split("\n").slice(-4).join("\n"))}}
+ else try{const r=new Function("console",code)({log:lg,error:lg,warn:lg});if(r!==undefined)lg("→",r)}catch(e){lg("Erro:",e.message)}}}
+let PY=null;async function loadPy(){if(PY)return PY;await new Promise((r,j)=>{const t=document.createElement("script");t.src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";t.onload=r;t.onerror=()=>j(Error("Sem ligação para carregar o Python."));document.head.append(t)});PY=await loadPyodide();return PY}
+function appNotes(b,w,arg){editor(b,w,arg,false)}function appCode(b,w,arg){editor(b,w,arg,true)}
+
+/* ---------- Explorador ---------- */
+function appFiles(b,w){let cwd=[],sel=null;
+ const draw=()=>{const n=nd(cwd);b.innerHTML=`<div class="bar"><button class="btn2" data-a="u">⬆</button><input readonly value="/${esc(cwd.join("/"))}"><button class="btn2" data-a="f">+ Pasta</button><button class="btn2" data-a="n">+ Ficheiro</button><button class="btn2" data-a="d">🗑</button></div><div class="fl">`+
+  (Object.keys(n.c).sort().map(k=>`<div class="fi${sel===k?" sel":""}" data-k="${esc(k)}"><span>${n.c[k].t==="d"?"📁":"📄"}</span>${esc(k)}</div>`).join("")||'<div style="color:var(--m);padding:10px">Pasta vazia</div>')+"</div>";
+  b.querySelectorAll(".fi").forEach(e=>{e.onclick=()=>{sel=e.dataset.k;draw()};e.ondblclick=()=>{const k=e.dataset.k;if(n.c[k].t==="d"){cwd.push(k);sel=null;draw()}else openApp(k.endsWith(".js")&&own.has("code")?"code":"notes","/"+[...cwd,k].join("/"))}});
+  b.querySelector('[data-a="u"]').onclick=()=>{cwd.pop();sel=null;draw()};
+  b.querySelector('[data-a="f"]').onclick=()=>{const s=prompt("Nome da pasta:");s&&!fsMk([...cwd,s])&&toast("Erro","Nome inválido ou já existe.");draw()};
+  b.querySelector('[data-a="n"]').onclick=()=>{const s=prompt("Nome do ficheiro:","novo.txt");s&&(nd([...cwd,s])||fsWrite([...cwd,s],""));draw()};
+  b.querySelector('[data-a="d"]').onclick=()=>{if(sel&&confirm("Apagar "+sel+"?")){fsRm([...cwd,sel]);sel=null;draw()}}};draw()}
+
+/* ---------- Calculadora ---------- */
+function appCalc(b){b.innerHTML='<div class="calc"><div class="dp">0</div></div>';const g=b.firstChild,dp=g.firstChild;let e="";
+ "C ( ) ÷ 7 8 9 × 4 5 6 − 1 2 3 + 0 . ⌫ =".split(" ").forEach(k=>{const x=document.createElement("button");x.textContent=k;if("÷×−+=".includes(k))x.className="op";
+  x.onclick=()=>{if(k==="C")e="";else if(k==="⌫")e=e.slice(0,-1);else if(k==="="){try{const s=e.replace(/÷/g,"/").replace(/×/g,"*").replace(/−/g,"-");if(!/^[0-9+\-*/.() ]+$/.test(s))throw 0;e=String(+(Function('"use strict";return('+s+")")()).toFixed(10))}catch{e="Erro"}}else{if(e==="Erro")e="";e+=k}dp.textContent=e||"0"};g.append(x)})}
+
+/* ---------- Browser ---------- */
+function appWeb(b){const home='<body style="font-family:sans-serif;background:#120c22;color:#eee;text-align:center;padding:40px"><h1>🌐 NubleLari Browser</h1><p>Escreve um endereço ou pesquisa na barra acima.</p><p><a style="color:#c084fc" href="https://pt.wikipedia.org">Wikipédia</a> · <a style="color:#c084fc" href="https://www.openstreetmap.org">OpenStreetMap</a> · <a style="color:#c084fc" href="https://archive.org">Archive.org</a></p><p style="color:#999;font-size:12px">Alguns sites recusam abrir dentro de janelas. Usa ↗ para os abrir num separador novo.</p></body>';
+ b.innerHTML='<div class="bar"><button class="btn2" data-a="h">🏠</button><input placeholder="Endereço ou pesquisa"><button class="btn2" data-a="g">Ir</button><button class="btn2" data-a="o" title="Abrir num separador novo">↗</button></div><iframe style="flex:1;border:0;background:#fff" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>';
+ const f=b.querySelector("iframe"),i=b.querySelector("input");f.srcdoc=home;
+ const url=()=>{const v=i.value.trim();if(!v)return"";if(/^https?:\/\//i.test(v))return v;if(!/\s/.test(v)&&/\.[a-z]{2,}/i.test(v))return"https://"+v;return"https://pt.wikipedia.org/w/index.php?search="+encodeURIComponent(v)};
+ const go=()=>{const u=url();if(u)f.removeAttribute("srcdoc"),f.src=u};
+ i.onkeydown=e=>e.key==="Enter"&&go();b.querySelector('[data-a="g"]').onclick=go;
+ b.querySelector('[data-a="h"]').onclick=()=>{f.removeAttribute("src");f.srcdoc=home;i.value=""};
+ b.querySelector('[data-a="o"]').onclick=()=>{const u=url();u&&open(u,"_blank","noopener")}}
+
+/* ---------- Snake ---------- */
+function appSnake(b,w){b.innerHTML='<div class="bar"><b class="sc2">Pontos: 0</b><button class="btn2" data-a="r">Reiniciar</button></div><canvas width="300" height="300" style="margin:10px auto"></canvas>';
+ const c=b.querySelector("canvas"),x=c.getContext("2d"),S=15,N=20;let s,d,f,pts,dead,t;
+ const rst=()=>{s=[{x:10,y:10}];d={x:1,y:0};pts=0;dead=false;food();b.querySelector(".sc2").textContent="Pontos: 0"},food=()=>{do f={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)};while(s.some(p=>p.x===f.x&&p.y===f.y))};
+ const tick=()=>{if(dead)return;const h={x:(s[0].x+d.x+N)%N,y:(s[0].y+d.y+N)%N};if(s.some(p=>p.x===h.x&&p.y===h.y)){dead=true}else{s.unshift(h);h.x===f.x&&h.y===f.y?(pts++,food(),b.querySelector(".sc2").textContent="Pontos: "+pts):s.pop()}
+  x.fillStyle="#05030a";x.fillRect(0,0,300,300);x.fillStyle="#ff718b";x.fillRect(f.x*S,f.y*S,S-1,S-1);x.fillStyle=getComputedStyle(document.body).getPropertyValue("--a");s.forEach(p=>x.fillRect(p.x*S,p.y*S,S-1,S-1));
+  if(dead){x.fillStyle="#fff";x.font="22px sans-serif";x.fillText("Fim de jogo",95,155)}};
+ const key=e=>{if(!w.el.classList.contains("foc"))return;const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(m){e.preventDefault();if(m[0]!==-d.x||m[1]!==-d.y)d={x:m[0],y:m[1]}}};
+ addEventListener("keydown",key);t=setInterval(tick,110);w.cl.push(()=>{clearInterval(t);removeEventListener("keydown",key)});b.querySelector('[data-a="r"]').onclick=rst;rst()}
+
+/* ---------- Tarefas ---------- */
+function appTasks(b){const k="nlos_tasks_"+U.id;let L=LS(k,[]);const draw=()=>{b.innerHTML='<div class="bar"><input placeholder="Nova tarefa"><button class="btn2">+</button></div><div class="fl">'+L.map((t,i)=>`<div class="tk2${t.d?" d":""}"><input type="checkbox" data-i="${i}" ${t.d?"checked":""}><span style="flex:1">${esc(t.t)}</span><button class="btn2" data-x="${i}">✕</button></div>`).join("")+"</div>";
+ const add=()=>{const v=b.querySelector("input").value.trim();v&&(L.push({t:v,d:false}),SS(k,L),draw())};b.querySelector(".bar button").onclick=add;b.querySelector(".bar input").onkeydown=e=>e.key==="Enter"&&add();
+ b.querySelectorAll("[data-i]").forEach(e=>e.onchange=()=>{L[e.dataset.i].d=e.checked;SS(k,L);draw()});b.querySelectorAll("[data-x]").forEach(e=>e.onclick=()=>{L.splice(e.dataset.x,1);SS(k,L);draw()})};draw()}
+
+/* ---------- Paint ---------- */
+function appPaint(b){b.innerHTML='<div class="bar"><input type="color" value="#a855f7" style="padding:2px;width:44px"><input type="range" min="1" max="30" value="4" style="flex:0 0 100px"><button class="btn2" data-a="c">Limpar</button><button class="btn2" data-a="s">Guardar PNG</button></div><div style="padding:8px;overflow:auto"><canvas width="520" height="340" style="touch-action:none;cursor:crosshair"></canvas></div>';
+ const c=b.querySelector("canvas"),x=c.getContext("2d"),col=b.querySelector('[type=color]'),sz=b.querySelector('[type=range]');let on=false;x.fillStyle="#fff";x.fillRect(0,0,520,340);x.lineCap="round";
+ const p=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*520/r.width,(e.clientY-r.top)*340/r.height]};
+ c.onpointerdown=e=>{on=true;c.setPointerCapture(e.pointerId);x.strokeStyle=col.value;x.lineWidth=sz.value;x.beginPath();x.moveTo(...p(e))};
+ c.onpointermove=e=>{if(on){x.lineTo(...p(e));x.stroke()}};c.onpointerup=()=>on=false;
+ b.querySelector('[data-a="c"]').onclick=()=>{x.fillStyle="#fff";x.fillRect(0,0,520,340)};
+ b.querySelector('[data-a="s"]').onclick=()=>{const a=document.createElement("a");a.href=c.toDataURL();a.download="desenho.png";a.click()}}
+
+/* ---------- Definições ---------- */
+function appSet(b){const th=localStorage.getItem("nlos_theme")||"neb";
+ b.innerHTML=`<div class="pad"><h3 style="margin:0">Conta</h3><div>${esc(U.display_name)} (@${esc(U.username)})<br><small style="color:var(--m)">NP: ${esc(U.np)} · Saldo: ${eur(U.balance)}<br>Dispositivo: ${esc(cfg.pc||"NUBLE-PC")}</small></div>
+ <h3 style="margin:0">Tema</h3><div class="row"><button class="btn2" data-t="neb">🟣 Nebulosa</button><button class="btn2" data-t="sing">🟠 Singularidade</button></div>
+ <h3 style="margin:0">Sistema</h3><div class="row"><button class="btn2" data-a="rf">Repor ficheiros</button><button class="btn2" data-a="lo">Terminar sessão</button></div><small style="color:var(--m)">NubleLariOS 1.0 · Supabase ligado ao banco</small></div>`;
+ b.querySelectorAll("[data-t]").forEach(e=>e.onclick=()=>setTheme(e.dataset.t));
+ b.querySelector('[data-a="rf"]').onclick=()=>{if(confirm("Apagar todos os teus ficheiros do OS?")){localStorage.removeItem(fkey());initFS();toast("Feito","Ficheiros repostos.")}};
+ b.querySelector('[data-a="lo"]').onclick=logout}
+function setTheme(t,ns){document.body.classList.toggle("sing",t==="sing");localStorage.setItem("nlos_theme",t);if(U&&!ns){cfg.theme=t;saveCfg()}}
+function saveCfg(){SS("nlos_cfg_"+U.id,cfg);sb("os_settings?on_conflict=user_id",{method:"POST",body:{user_id:U.id,data:cfg,updated:new Date().toISOString()},prefer:"resolution=merge-duplicates,return=minimal"}).catch(()=>{})}
+
+/* ---------- Store ---------- */
+function appStore(b){let q="",f="all";b.innerHTML='<div class="sth"><b>🛍️ Store NubleLariOS</b><span class="sb2"></span></div><div class="bar"><input placeholder="Pesquisar apps…"><select><option value="all">Todas</option><option value="free">Grátis</option><option value="paid">Pagas</option><option value="own">Instaladas</option></select></div><div class="fl"><div class="sg"></div></div>';
+ const g=b.querySelector(".sg"),sp=b.querySelector(".sb2"),i=b.querySelector("input"),sl=b.querySelector("select");
+ const draw=()=>{sp.textContent="Saldo: "+eur(U.balance);const ks=Object.keys(APPS).filter(k=>{const a=APPS[k];return!a.sys&&(f==="all"||(f==="free"&&!a.price)||(f==="paid"&&a.price>0)||(f==="own"&&own.has(k)))&&(a.n+" "+a.d).toLowerCase().includes(q)});
+  g.innerHTML=ks.map(k=>{const a=APPS[k],o=own.has(k);return`<div class="sc"><div class="ic">${a.i}</div><b>${esc(a.n)}</b><small>${esc(a.d)}</small><button class="btn" data-k="${k}" ${o?"disabled":""}>${o?"Instalada":a.price?eur(a.price):"Grátis"}</button></div>`}).join("")||'<div style="color:var(--m)">Nada encontrado.</div>';
+  g.querySelectorAll("[data-k]").forEach(x=>x.onclick=async()=>{x.disabled=true;await buy(x.dataset.k);draw()})};
+ i.oninput=()=>{q=i.value.toLowerCase();draw()};sl.onchange=()=>{f=sl.value;draw()};draw();refreshBal().then(draw)}
+async function buy(k){const a=APPS[k];
+ try{
+  if(a.price>0){
+   const r=await sb("users?id=eq."+encodeURIComponent(U.id)+"&select=balance,frozen&limit=1"),c=r&&r[0];if(!c)throw Error("conta");
+   if(c.frozen)return toast("Conta congelada","Não podes comprar.");
+   const bal=Number(c.balance);if(bal+1e-6<a.price)return toast("Saldo insuficiente","Tens "+eur(bal)+".");
+   const nb=Math.round((bal-a.price)*100)/100;
+   const up=await sb("users?id=eq."+encodeURIComponent(U.id)+"&balance=eq."+c.balance,{method:"PATCH",body:{balance:nb},prefer:"return=representation"});
+   if(!up||!up.length)return toast("Tenta outra vez","O saldo mudou durante a compra.");
+   U.balance=nb;setBal();
+   await sb("transactions",{method:"POST",body:{id:uid(),user_id:U.id,kind:"outgoing",amount:a.price,other_name:"NubleLariOS Store",description:"App: "+a.n,date:new Date().toISOString()},prefer:"return=minimal"}).catch(e=>console.error(e));
+   await sb("notifications",{method:"POST",body:{id:uid(),user_id:U.id,title:"Compra na Store",message:a.n+" por "+eur(a.price),type:"info",read:false,date:new Date().toISOString()},prefer:"return=minimal"}).catch(()=>{})}
+  own.add(k);SS("nlos_own_"+U.id,[...own]);
+  sb("os_purchases",{method:"POST",body:{user_id:U.id,app_id:k,price:a.price,date:new Date().toISOString()},prefer:"return=minimal"}).catch(()=>{});
+  toast("Instalada",a.n);renderDesk()
+ }catch(e){console.error(e);toast("Erro","Não foi possível concluir. Tenta outra vez.")}}
+
+/* ---------- primeiro arranque: instalador + configuração ---------- */
+async function uniq(col,gen){for(let i=0;i<30;i++){const v=gen();const r=await sb("users?"+col+"=eq."+v+"&select=id&limit=1");if(!r||!r.length)return v}throw Error("sem "+col)}
+async function verify(u,p){const r=await sb("users?username_lower=eq."+encodeURIComponent(norm(u))+"&select="+UC+",password_hash&limit=1"),row=r&&r[0];
+ if(!row||row.password_hash!==await hash(u,p)){toast("Não foi possível entrar","Confirma o utilizador e a palavra-passe.");return null}delete row.password_hash;return row}
+async function createAccount(u,dn,p){
+ const ex=await sb("users?username_lower=eq."+encodeURIComponent(norm(u))+"&select=id&limit=1");if(ex&&ex.length){toast("Nome indisponível","Esse nome de utilizador já existe.");return null}
+ const rn=(a,b)=>()=>String(a+Math.floor(Math.random()*b));
+ const np=await uniq("np",rn(100000,900000)),nt=await uniq("nt",rn(100000000,900000000)),card=await uniq("card_number",()=>[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x%10).join(""));
+ const now=new Date(),d=new Date();d.setFullYear(d.getFullYear()+3);const exp=String(d.getMonth()+1).padStart(2,"0")+"/"+String(d.getFullYear()).slice(-2);
+ const id=uid();await sb("users",{method:"POST",prefer:"return=minimal",body:{id,username:u,username_lower:norm(u),display_name:dn.slice(0,35),np,nt,card_number:card,card_expiry:exp,balance:0,frozen:false,created_at:now.toISOString(),password_hash:await hash(u,p)}});
+ sb("notifications",{method:"POST",body:{id:uid(),user_id:id,title:"Bem-vindo ao NubleLari!",message:"A tua conta foi criada no NubleLariOS.",type:"success",read:false,date:now.toISOString()},prefer:"return=minimal"}).catch(()=>{});
+ return{id,username:u,display_name:dn.slice(0,35),np,balance:0,frozen:false}}
+function bootTerm(){const b=$("#boot"),o=$("#bo"),i=$("#bi");b.classList.remove("hid");
+ o.textContent="NubleLari BIOS v1.0\nMemória ... OK\nDisco ... OK\nRede ... "+(navigator.onLine?"OK":"sem ligação")+"\n\nNenhum sistema operativo encontrado.\nPara instalar escreve:  install NubleLariOS from na02\n\n";
+ const pr=t=>{o.textContent+=t+"\n";b.scrollTop=1e9},sl=ms=>new Promise(r=>setTimeout(r,ms));let busy=false;b.onclick=()=>i.focus();i.focus();
+ i.onkeydown=async e=>{if(e.key!=="Enter"||busy)return;const v=i.value.trim();i.value="";pr("nuble-setup> "+v);if(!v)return;
+  if(/^help$/i.test(v))return pr("Comando disponível: install NubleLariOS from na02");
+  if(!/^install\s+nublelarios\s+from\s+na02$/i.test(v))return pr("Comando não reconhecido. Dica: install NubleLariOS from na02");
+  busy=true;i.disabled=true;pr("A ligar a na02...");
+  try{await sb("users?username_lower=eq.na02&select=id&limit=1")}catch(err){pr("ERRO: sem ligação ao servidor. Verifica a internet e tenta outra vez.");busy=false;i.disabled=false;i.focus();return}
+  pr("Ligação OK. A transferir NubleLariOS 1.0...");const t=o.textContent;
+  for(let p=0;p<=100;p+=4){o.textContent=t+"["+"█".repeat(p/4)+"░".repeat(25-p/4)+"] "+p+"%";await sl(70)}
+  pr("\nA instalar núcleo, apps de fábrica e Store...");await sl(900);pr("Instalação concluída. A reiniciar...");await sl(1200);oobe()}}
+function oobe(){$("#boot").classList.add("hid");const el=$("#oobe");el.classList.remove("hid");localStorage.setItem("nlos_state","oobe");
+ let st=0,mode="new",pend=null;const c={pc:"NUBLE-PC",theme:localStorage.getItem("nlos_theme")||"neb"};
+ const box=h=>{el.innerHTML=`<div class="obox">${LOGO}<div class="dots">${[0,1,2].map(i=>`<i class="${i<=st?"on":""}"></i>`).join("")}</div>${h}</div>`};
+ const s0=()=>{st=0;box('<h2>Bem-vindo ao NubleLariOS</h2><p>Vamos configurar o teu computador. Precisas de uma conta NubleLari (a mesma do banco).</p><button class="btn" id="o1">Criar conta nova</button><button class="btn2" id="o2">Já tenho conta do banco</button>');
+  $("#o1").onclick=()=>{mode="new";s1()};$("#o2").onclick=()=>{mode="old";s1()}};
+ const s1=()=>{st=1;const n=mode==="new";box(`<h2>${n?"Criar conta":"Entrar na conta"}</h2><form id="of" style="display:grid;gap:10px"><input type="text" id="ou" placeholder="Nome de utilizador" autocomplete="username">${n?'<input type="text" id="od" placeholder="Nome a mostrar (opcional)">':""}<input type="password" id="op" placeholder="Palavra-passe">${n?'<input type="password" id="oq" placeholder="Repetir palavra-passe">':""}<div class="row"><button type="button" class="btn2" id="ob">Voltar</button><button class="btn" id="oc" style="flex:1">Continuar</button></div></form>`);
+  $("#ob").onclick=s0;
+  $("#of").onsubmit=async e=>{e.preventDefault();const u=$("#ou").value.trim(),p=$("#op").value,b=$("#oc");
+   if(n){if(!/^[a-zA-Z0-9_.-]{3,24}$/.test(u))return toast("Nome inválido","3 a 24 caracteres: letras, números, ponto, traço ou sublinhado.");if(p.length<4)return toast("Palavra-passe curta","Usa pelo menos 4 caracteres.");if(p!==$("#oq").value)return toast("Não coincidem","As palavras-passe são diferentes.")}
+   if(!u||!p)return;b.disabled=true;
+   try{pend=n?await createAccount(u,$("#od").value.trim()||u,p):await verify(u,p);if(pend)s2()}catch(err){console.error(err);toast("Erro",/23505|duplicate/.test(err.message)?"Esse nome acabou de ser usado.":"Não foi possível falar com o Supabase.")}finally{b.disabled=false}}};
+ const s2=()=>{st=2;box(`<h2>Configuração</h2><label>Nome do computador</label><input type="text" id="oc1" maxlength="20" value="${esc(c.pc)}"><label>Tema</label><div class="row"><button class="btn2" data-t="neb">🟣 Nebulosa</button><button class="btn2" data-t="sing">🟠 Singularidade</button></div><label>Apps grátis para instalar</label><label class="ck"><input type="checkbox" id="k1" checked> 🐍 Snake</label><label class="ck"><input type="checkbox" id="k2" checked> ✅ Tarefas</label><button class="btn" id="of2">Concluir</button>`);
+  el.querySelectorAll("[data-t]").forEach(x=>x.onclick=()=>{c.theme=x.dataset.t;setTheme(c.theme)});
+  $("#of2").onclick=async()=>{c.pc=($("#oc1").value.trim()||"NUBLE-PC").slice(0,20);const apps=[$("#k1").checked&&"snake",$("#k2").checked&&"tasks"].filter(Boolean);
+   box("<h2>A preparar o teu espaço…</h2><p>Só um momento.</p>");SS("nlos_cfg_"+pend.id,{pc:c.pc,theme:c.theme});SS("nlos_own_"+pend.id,apps);
+   apps.forEach(k=>sb("os_purchases",{method:"POST",body:{user_id:pend.id,app_id:k,price:0,date:new Date().toISOString()},prefer:"return=minimal"}).catch(()=>{}));
+   await new Promise(r=>setTimeout(r,1600));await startOS(pend);saveCfg()}};
+ s0()}
+
+/* ---------- catálogo: 100 apps na Store ---------- */
+const rnd=n=>Math.random()*n|0,pick=a=>a[rnd(a.length)];
+const U_=o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[k,Array.isArray(v)?v:[v,0]]));
+const R=(k,n,i,p,d,f,c,s)=>{APPS[k]={n,i,price:p,d,w:s&&s[0]||360,h:s&&s[1]||400,f:(b,w)=>f(b,w,c)}};
+const C=(k,n,i,p,u)=>R(k,n,i,p,"Conversor de unidades.",appConv,U_(u)),T=(k,n,i,p,fn)=>R(k,n,i,p,"Ferramenta de texto.",appTxt,fn),G=(k,n,i,p,fn)=>R(k,n,i,p,"Gerador aleatório.",appGen,fn),Q=(k,n,i,p,q)=>R(k,n,i,p,"Quiz de perguntas.",appQuiz,q),L=(k,n,i,p,m)=>R(k,n,i,p,"Lista guardada na tua conta.",appList,m),F=(k,n,i,p,f,fn)=>R(k,n,i,p,"Calculadora.",appForm,[f,fn]),GM=(k,n,i,p,fn)=>R(k,n,i,p,"Jogo.",fn,0,[360,430]);
+function appConv(b,w,u){const ks=Object.keys(u),op=ks.map(k=>`<option>${k}</option>`).join("");b.innerHTML=`<div class="pad"><input type="number" value="1" step="any"><select>${op}</select><div style="text-align:center">⇅</div><select>${op}</select><h2 style="margin:0;word-break:break-all"></h2></div>`;const i=b.querySelector("input"),[s1,s2]=b.querySelectorAll("select"),h=b.querySelector("h2");s2.selectedIndex=Math.min(1,ks.length-1);const c=()=>{const v=+i.value,[a,o]=u[s1.value],[a2,o2]=u[s2.value];h.textContent=i.value===""?"":+(((v*a+o)-o2)/a2).toPrecision(10)+" "+s2.value};[i,s1,s2].forEach(e=>e.oninput=c);c()}
+function appTxt(b,w,fn){const st="min-height:110px;border:1px solid var(--bd);border-radius:10px;flex:none";b.innerHTML=`<div class="pad"><textarea class="ed" style="${st}" placeholder="Escreve aqui"></textarea><textarea class="ed" readonly style="${st}" placeholder="Resultado"></textarea><button class="btn2">Copiar resultado</button></div>`;const[a,o]=b.querySelectorAll("textarea");a.oninput=()=>{try{o.value=fn(a.value)}catch(e){o.value="Erro: "+e.message}};b.querySelector("button").onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(o.value)}
+function appGen(b,w,fn){b.innerHTML='<div class="pad" style="text-align:center"><button class="btn">Gerar</button><h2 style="margin:0;word-break:break-word;padding:18px;border-radius:12px;background:var(--p2);white-space:pre-wrap"></h2><button class="btn2">Copiar</button></div>';const h=b.querySelector("h2"),go=()=>{const v=String(fn());h.textContent=v;h.style.background=/^#[0-9a-f]{6}$/i.test(v)?v:""};b.querySelector(".btn").onclick=go;b.querySelector(".btn2").onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(h.textContent);go()}
+function appForm(b,w,c){b.innerHTML='<div class="pad">'+c[0].map(f=>`<label>${f[0]}<input type="${f[1]||"number"}" step="any" ${f[2]!=null?`value="${f[2]}"`:""}></label>`).join("")+'<button class="btn">Calcular</button><h3 style="margin:0;white-space:pre-wrap"></h3></div>';const is=b.querySelectorAll("input"),h=b.querySelector("h3");b.querySelector("button").onclick=()=>{try{h.textContent=c[1](...[...is].map((x,i)=>(c[0][i][1]||"number")==="number"?parseFloat(x.value):x.value))}catch(e){h.textContent="Erro"}}}
+function appQuiz(b,w,q){let sc=0,n=0;const nx=()=>{const[p,c,...o]=typeof q==="function"?q():pick(q),op=[c,...o].sort(()=>Math.random()-.5);b.innerHTML=`<div class="pad"><div>Pontos: ${sc}/${n}</div><h3 style="margin:0">${esc(p)}</h3>`+op.map(x=>`<button class="btn2" data-v="${esc(x)}">${esc(x)}</button>`).join("")+"</div>";b.querySelectorAll("[data-v]").forEach(x=>x.onclick=()=>{n++;x.dataset.v===String(c)?(sc++,toast("Certo! ✅","")):toast("Errado ❌","Resposta: "+c);nx()})};nx()}
+function appList(b,w,sum){const k="nlos_l_"+U.id+w.k;let L=LS(k,[]);const num=t=>parseFloat(((String(t).match(/(-?\d+(?:[.,]\d+)?)\s*€?\s*$/)||[])[1]||"0").replace(",","."))||0;const dr=()=>{b.innerHTML='<div class="bar"><input placeholder="Adicionar…"><button class="btn2">+</button></div><div class="fl">'+L.map((t,i)=>`<div class="tk2"><span style="flex:1">${esc(t)}</span><button class="btn2" data-x="${i}">✕</button></div>`).join("")+"</div>"+(sum?`<div class="bar">Total: ${eur(L.reduce((a,t)=>a+num(t),0))} <small style="color:var(--m)">(escreve o valor no fim, ex: Café 1,50)</small></div>`:"");const add=()=>{const v=b.querySelector("input").value.trim();v&&(L.push(v),SS(k,L),dr())};b.querySelector(".bar button").onclick=add;b.querySelector(".bar input").onkeydown=e=>e.key==="Enter"&&add();b.querySelectorAll("[data-x]").forEach(e=>e.onclick=()=>{L.splice(e.dataset.x,1);SS(k,L);dr()})};dr()}
+function appStop(b,w){let t=0,run=0,st=0,iv;b.innerHTML='<div class="pad" style="text-align:center"><h1 style="font-size:46px;margin:10px"></h1><div class="row" style="justify-content:center"><button class="btn" data-a="p">Iniciar</button><button class="btn2" data-a="r">Zerar</button></div></div>';const h=b.querySelector("h1"),f=ms=>{const s=ms/1000;return String(Math.floor(s/60)).padStart(2,"0")+":"+(s%60).toFixed(1).padStart(4,"0")},bt=b.querySelector('[data-a="p"]');h.textContent=f(0);
+ bt.onclick=()=>{if(run){run=0;t+=Date.now()-st;clearInterval(iv);bt.textContent="Continuar"}else{run=1;st=Date.now();iv=setInterval(()=>h.textContent=f(t+Date.now()-st),100);bt.textContent="Pausar"}};
+ b.querySelector('[data-a="r"]').onclick=()=>{run=0;t=0;clearInterval(iv);h.textContent=f(0);bt.textContent="Iniciar"};w.cl.push(()=>clearInterval(iv))}
+function appCount(b,w,m){let left=0,iv;b.innerHTML=`<div class="pad" style="text-align:center"><input type="number" min="0.1" step="any" value="${m}"><small style="color:var(--m)">minutos</small><h1 style="font-size:46px;margin:10px"></h1><div class="row" style="justify-content:center"><button class="btn" data-a="p">Iniciar</button><button class="btn2" data-a="r">Parar</button></div></div>`;const h=b.querySelector("h1"),i=b.querySelector("input"),f=x=>{x=Math.max(0,Math.ceil(x));return String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0")};h.textContent=f(m*60);
+ b.querySelector('[data-a="p"]').onclick=()=>{clearInterval(iv);left=Math.round(i.value*60);h.textContent=f(left);iv=setInterval(()=>{left--;h.textContent=f(left);if(left<=0){clearInterval(iv);toast("⏰ Acabou o tempo!",APPS[w.k].n)}},1000)};
+ b.querySelector('[data-a="r"]').onclick=()=>{clearInterval(iv);h.textContent=f(i.value*60)};w.cl.push(()=>clearInterval(iv))}
+function appClk(b,w){const Z=["Europe/Lisbon","America/Sao_Paulo","America/New_York","Asia/Tokyo","Australia/Sydney","Europe/Moscow"];b.innerHTML='<div class="pad"></div>';const d=b.firstChild,u=()=>d.innerHTML=Z.map(z=>`<div class="row" style="justify-content:space-between"><span>${z.split("/")[1].replace("_"," ")}</span><b>${new Date().toLocaleTimeString("pt-PT",{timeZone:z})}</b></div>`).join("");u();const iv=setInterval(u,1000);w.cl.push(()=>clearInterval(iv))}
+function appCal(b){let d=new Date();d.setDate(1);const dr=()=>{const f=(d.getDay()+6)%7,n=new Date(d.getFullYear(),d.getMonth()+1,0).getDate(),t=new Date(),cur=t.getFullYear()===d.getFullYear()&&t.getMonth()===d.getMonth();b.innerHTML=`<div class="bar"><button class="btn2" data-s="-1">◀</button><b style="flex:1;text-align:center">${d.toLocaleDateString("pt-PT",{month:"long",year:"numeric"})}</b><button class="btn2" data-s="1">▶</button></div><div class="gg" style="grid-template-columns:repeat(7,1fr);text-align:center">`+["S","T","Q","Q","S","S","D"].map(x=>`<b>${x}</b>`).join("")+"<i></i>".repeat(f)+Array.from({length:n},(_,i)=>`<span style="padding:6px;border-radius:8px;${cur&&t.getDate()===i+1?"background:var(--a)":""}">${i+1}</span>`).join("")+"</div>";b.querySelectorAll("[data-s]").forEach(x=>x.onclick=()=>{d.setMonth(d.getMonth()+ +x.dataset.s);dr()})};dr()}
+function appMem(b){const E=[..."🚀🪐⭐🌙🔥🐱🍕🎸"];let c,o,m,mv;const rs=()=>{c=[...E,...E].sort(()=>Math.random()-.5);o=[];m=new Set;mv=0;dr()},dr=()=>{b.innerHTML=`<div class="bar"><b style="flex:1">Jogadas: ${mv}${m.size===16?" 🎉":""}</b><button class="btn2" data-r>Novo</button></div><div class="gg" style="grid-template-columns:repeat(4,1fr)">`+c.map((e,i)=>`<button data-i="${i}">${m.has(i)||o.includes(i)?e:"❔"}</button>`).join("")+"</div>";b.querySelector("[data-r]").onclick=rs;b.querySelectorAll("[data-i]").forEach(x=>x.onclick=()=>{const i=+x.dataset.i;if(o.length>1||m.has(i)||o.includes(i))return;o.push(i);if(o.length===2){mv++;if(c[o[0]]===c[o[1]]){o.forEach(j=>m.add(j));o=[]}else setTimeout(()=>{o=[];dr()},700)}dr()})};rs()}
+function appTtt(b){let g,over;const W=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]],win=p=>W.some(l=>l.every(i=>g[i]===p)),rs=()=>{g=Array(9).fill("");over="";dr()},dr=()=>{b.innerHTML=`<div class="bar"><b style="flex:1">${over||"A tua vez (X)"}</b><button class="btn2" data-r>Novo</button></div><div class="gg" style="grid-template-columns:repeat(3,1fr)">`+g.map((x,i)=>`<button data-i="${i}">${x||"·"}</button>`).join("")+"</div>";b.querySelector("[data-r]").onclick=rs;b.querySelectorAll("[data-i]").forEach(x=>x.onclick=()=>{const i=+x.dataset.i;if(over||g[i])return;g[i]="X";if(win("X"))over="Ganhaste! 🎉";else if(g.every(Boolean))over="Empate";else{const e=g.map((v,j)=>v?-1:j).filter(j=>j>=0),t=p=>e.find(j=>{g[j]=p;const r=win(p);g[j]="";return r}),mv=t("O")??t("X")??e[rnd(e.length)];g[mv]="O";over=win("O")?"Perdeste":g.every(Boolean)?"Empate":""}dr()})};rs()}
+function appGuess(b){let n=1+rnd(100),k=0;b.innerHTML='<div class="pad"><h3 style="margin:0">Adivinha o número (1–100)</h3><input type="number"><button class="btn">Tentar</button><div class="msg"></div></div>';const i=b.querySelector("input"),m=b.querySelector(".msg");b.querySelector(".btn").onclick=()=>{const v=+i.value;if(!v)return;k++;m.textContent=v===n?`🎉 Acertaste em ${k} tentativas!`:v<n?"Mais alto ⬆️":"Mais baixo ⬇️";if(v===n){n=1+rnd(100);k=0}}}
+function appReact(b,w){b.innerHTML='<div class="pad"><button class="btn" style="height:160px;font-size:20px">Clica para começar</button><div class="msg" style="text-align:center"></div></div>';const bt=b.querySelector("button"),m=b.querySelector(".msg");let st=0,tm,t0=0;bt.onclick=()=>{if(st===0){st=1;bt.textContent="Espera…";bt.style.background="#7a2233";tm=setTimeout(()=>{st=2;bt.textContent="CLICA!";bt.style.background="#1f9d63";t0=performance.now()},1000+rnd(3000))}else if(st===1){clearTimeout(tm);st=0;bt.textContent="Cedo demais! Tenta outra vez";bt.style.background=""}else{m.textContent=Math.round(performance.now()-t0)+" ms";st=0;bt.textContent="Jogar outra vez";bt.style.background=""}};w.cl.push(()=>clearTimeout(tm))}
+function appWhack(b,w){let s=0,t=0,h=-1,iv;b.innerHTML='<div class="bar"><b class="inf" style="flex:1"></b><button class="btn2" data-r>Começar</button></div><div class="gg" style="grid-template-columns:repeat(3,1fr)"></div>';const g=b.querySelector(".gg"),inf=b.querySelector(".inf"),dr=()=>{g.innerHTML=Array.from({length:9},(_,i)=>`<button data-i="${i}">${i===h?"🐹":"🕳️"}</button>`).join("");g.querySelectorAll("button").forEach(x=>x.onclick=()=>{if(t>0&&+x.dataset.i===h){s++;h=-1;dr()}});inf.textContent=`Pontos: ${s} · rondas: ${t}`};dr();b.querySelector("[data-r]").onclick=()=>{clearInterval(iv);s=0;t=25;iv=setInterval(()=>{t--;h=t>0?rnd(9):-1;if(t<=0)clearInterval(iv);dr()},750)};w.cl.push(()=>clearInterval(iv))}
+function appRps(b){let w=0,l=0;const O=["🪨","📄","✂️"],dr=(r="")=>{b.innerHTML=`<div class="pad" style="text-align:center"><div>Vitórias ${w} · Derrotas ${l}</div><h3 style="margin:0">${r}</h3><div class="row" style="justify-content:center">`+O.map((x,i)=>`<button class="btn2" style="font-size:36px" data-i="${i}">${x}</button>`).join("")+"</div></div>";b.querySelectorAll("[data-i]").forEach(x=>x.onclick=()=>{const a=+x.dataset.i,c=rnd(3),d=(a-c+3)%3;d===1?w++:d===2&&l++;dr(`${O[a]} vs ${O[c]} — ${d===0?"Empate":d===1?"Ganhaste!":"Perdeste"}`)})};dr()}
+function appClick(b,w){const k="nlos_clk_"+U.id;let s=LS(k,{n:0,p:1,a:0});const dr=()=>{b.innerHTML=`<div class="pad" style="text-align:center"><h1 style="margin:0">${Math.floor(s.n)} ⭐</h1><button class="btn" style="height:110px;font-size:30px" data-c>Clica! (+${s.p})</button><button class="btn2" data-u="p" ${s.n<10*s.p?"disabled":""}>Mais força (${10*s.p} ⭐)</button><button class="btn2" data-u="a" ${s.n<25*(s.a+1)?"disabled":""}>Auto-clique +1/s (${25*(s.a+1)} ⭐)</button></div>`;b.querySelector("[data-c]").onclick=()=>{s.n+=s.p;SS(k,s);dr()};b.querySelectorAll("[data-u]").forEach(x=>x.onclick=()=>{const t=x.dataset.u;if(t==="p"&&s.n>=10*s.p){s.n-=10*s.p;s.p++}else if(t==="a"&&s.n>=25*(s.a+1)){s.n-=25*(s.a+1);s.a++}SS(k,s);dr()})};dr();const iv=setInterval(()=>{if(s.a){s.n+=s.a;dr()}},1000);w.cl.push(()=>clearInterval(iv))}
+function appHang(b){const W=["nebulosa","singularidade","galaxia","planeta","cometa","asteroide","telescopio","gravidade"];let p,g,e;const rs=()=>{p=pick(W);g=new Set;e=0;dr()},dr=()=>{const ok=[...p].every(c=>g.has(c)),lost=e>=7;b.innerHTML=`<div class="pad" style="text-align:center"><h1 style="letter-spacing:6px;margin:0">${[...p].map(c=>g.has(c)||lost?c:"_").join(" ")}</h1><div>Erros: ${e}/7 ${ok?"🎉 Ganhaste!":lost?"💀 Perdeste":""}</div><div class="row" style="justify-content:center">`+[..."abcdefghijklmnopqrstuvwxyz"].map(c=>`<button class="btn2" data-c="${c}" ${g.has(c)||ok||lost?"disabled":""}>${c}</button>`).join("")+'</div><button class="btn2" data-r>Novo</button></div>';b.querySelector("[data-r]").onclick=rs;b.querySelectorAll("[data-c]").forEach(x=>x.onclick=()=>{g.add(x.dataset.c);p.includes(x.dataset.c)||e++;dr()})};rs()}
+function appHilo(b){let n=1+rnd(13),s=0;const dr=(m="")=>{b.innerHTML=`<div class="pad" style="text-align:center"><div>Sequência: ${s}</div><h1 style="font-size:60px;margin:0">${n}</h1><div>${m}</div><div class="row" style="justify-content:center"><button class="btn" data-h="1">Maior ⬆️</button><button class="btn" data-h="0">Menor ⬇️</button></div></div>`;b.querySelectorAll("[data-h]").forEach(x=>x.onclick=()=>{const m=1+rnd(13),up=x.dataset.h==="1",ok=m===n||(up?m>n:m<n),old=n;ok?s++:s=0;n=m;dr(`${old} → ${m}: ${ok?"certo ✅":"errado ❌"}`)})};dr()}
+function appDuel(b){let a=0,c=0;const dr=(m="")=>{b.innerHTML=`<div class="pad" style="text-align:center"><div>Tu ${a} · PC ${c}</div><h3 style="margin:0">${m}</h3><button class="btn">Lançar dados 🎲</button></div>`;b.querySelector("button").onclick=()=>{const x=1+rnd(6),y=1+rnd(6);x>y?a++:y>x&&c++;dr(`🎲${x} vs 🎲${y} — ${x>y?"ganhas":x<y?"perdes":"empate"}`)}};dr()}
+
+C("c_len","Comprimento","📏",0,{m:1,km:1000,cm:.01,mm:.001,milha:1609.344,jarda:.9144,pé:.3048,polegada:.0254});
+C("c_mass","Massa","⚖️",0,{kg:1,g:.001,mg:1e-6,t:1000,libra:.45359237,onça:.028349523});
+C("c_time","Tempo","⏱️",0,{s:1,min:60,h:3600,dia:86400,semana:604800,ano:31557600});
+C("c_ang","Ângulos","📐",0,{graus:1,rad:180/Math.PI,grad:.9});
+C("c_vol","Volume","🧪",2.49,{L:1,mL:.001,m3:1000,galão:3.785411784,"copo(250mL)":.25});
+C("c_spd","Velocidade","🏎️",2.49,{"km/h":1,"m/s":3.6,mph:1.609344,nó:1.852});
+C("c_dat","Dados","💾",2.99,{B:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776,bit:.125});
+C("c_area","Área","🗺️",2.49,{"m²":1,"km²":1e6,hectare:1e4,"cm²":1e-4,acre:4046.8564224,"pé²":.09290304});
+C("c_temp","Temperatura","🌡️",2.99,{"°C":[1,0],"°F":[5/9,-160/9],K:[1,-273.15]});
+C("c_pres","Pressão","🎈",3.49,{Pa:1,bar:1e5,atm:101325,psi:6894.757,mmHg:133.322});
+C("c_en","Energia","⚡",3.49,{J:1,kJ:1000,cal:4.184,kcal:4184,kWh:3.6e6});
+C("c_pow","Potência","🔌",2.99,{W:1,kW:1000,cv:735.49875,hp:745.69987});
+T("t_up","Maiúsculas","🔠",0,s=>s.toUpperCase());
+T("t_low","Minúsculas","🔡",0,s=>s.toLowerCase());
+T("t_rev","Inverter texto","🔁",0,s=>[...s].reverse().join(""));
+T("t_cnt","Contador de texto","🔢",0,s=>`Caracteres: ${s.length}\nPalavras: ${(s.match(/\S+/g)||[]).length}\nLinhas: ${s?s.split("\n").length:0}`);
+T("t_b64","Base64 codificar","🔐",1.49,s=>btoa(unescape(encodeURIComponent(s))));
+T("t_b64d","Base64 decodificar","🔓",1.49,s=>decodeURIComponent(escape(atob(s.trim()))));
+T("t_json","Formatar JSON","🧾",2.99,s=>JSON.stringify(JSON.parse(s),null,2));
+T("t_slug","Slug","🔗",1.49,s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""));
+T("t_sort","Ordenar linhas","↕️",1.99,s=>s.split("\n").sort((a,b)=>a.localeCompare(b,"pt")).join("\n"));
+T("t_dup","Remover duplicados","🧹",1.99,s=>[...new Set(s.split("\n"))].join("\n"));
+const MZ={a:".-",b:"-...",c:"-.-.",d:"-..",e:".",f:"..-.",g:"--.",h:"....",i:"..",j:".---",k:"-.-",l:".-..",m:"--",n:"-.",o:"---",p:".--.",q:"--.-",r:".-.",s:"...",t:"-",u:"..-",v:"...-",w:".--",x:"-..-",y:"-.--",z:"--..",0:"-----",1:".----",2:"..---",3:"...--",4:"....-",5:".....",6:"-....",7:"--...",8:"---..",9:"----."};
+T("t_mor","Código Morse","📡",2.49,s=>[...s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()].map(c=>c===" "?"/":MZ[c]||"").join(" "));
+T("t_rot","ROT13","🌀",1.49,s=>s.replace(/[a-zA-Z]/g,c=>String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26)));
+T("t_url","URL codificar","🌐",1.49,s=>encodeURIComponent(s));
+T("t_tit","Capitalizar","🅰️",1.99,s=>s.toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase()));
+T("t_vog","Contar vogais","🔤",1.49,s=>"Vogais: "+(s.normalize("NFD").match(/[aeiou]/gi)||[]).length);
+T("t_acc","Remover acentos","✂️",1.49,s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,""));
+T("t_alt","Texto alternado","🤪",1.49,s=>[...s].map((c,i)=>i%2?c.toUpperCase():c.toLowerCase()).join(""));
+T("t_bin","Texto para binário","💻",1.99,s=>[...s].map(c=>c.charCodeAt(0).toString(2).padStart(8,"0")).join(" "));
+const PW="abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%";
+G("g_pw","Palavras-passe","🔑",0,()=>Array.from(crypto.getRandomValues(new Uint8Array(16)),x=>PW[x%PW.length]).join(""));
+G("g_d6","Dado","🎲",0,()=>"🎲 "+(1+rnd(6)));
+G("g_coin","Moeda","🪙",0,()=>pick(["Cara","Coroa"]));
+G("g_num","Número aleatório","🔀",0,()=>(1+rnd(100))+"  (1–100)");
+G("g_d20","Dado de 20","🐉",.99,()=>"d20: "+(1+rnd(20)));
+G("g_uuid","UUID","🆔",1.49,()=>uid());
+G("g_col","Cor aleatória","🌈",1.49,()=>"#"+rnd(16777216).toString(16).padStart(6,"0"));
+G("g_eur","Euromilhões","🍀",1.99,()=>{const s=new Set,e=new Set;while(s.size<5)s.add(1+rnd(50));while(e.size<2)e.add(1+rnd(12));return[...s].sort((a,b)=>a-b).join(" ")+"  ★ "+[...e].sort((a,b)=>a-b).join(" ")});
+G("g_quo","Citações","💬",1.99,()=>pick(["Quem não arrisca não petisca.","Devagar se vai ao longe.","Cada dia é uma nova oportunidade.","A prática leva à perfeição.","Sonha grande, começa pequeno.","O importante é não parar."]));
+G("g_8","Bola 8 mágica","🎱",1.49,()=>pick(["Sim","Não","Talvez","Com certeza","Pergunta outra vez","Duvido","Tudo indica que sim","Melhor não"]));
+G("g_fact","Factos curiosos","🧠",1.99,()=>pick(["O mel nunca se estraga.","Os polvos têm três corações.","Um dia em Vénus dura mais do que um ano.","As bananas são ligeiramente radioativas.","O Sol tem 99,8% da massa do Sistema Solar."]));
+G("g_dare","Desafios","🎯",1.49,()=>pick(["Faz 10 flexões.","Bebe um copo de água.","Arruma a secretária.","Escreve 3 coisas boas do dia.","Alonga durante 2 minutos."]));
+G("g_name","Nomes aleatórios","🪪",1.49,()=>pick(["Ana","Rui","Marta","Tiago","Inês","João","Sofia","Pedro"])+" "+pick(["Silva","Costa","Ferreira","Santos","Oliveira","Pereira"]));
+G("g_emo","Emoji aleatório","😀",.99,()=>pick([..."😀😎🤖👾🚀🌌🪐⭐🔥🍕🎸🐱"]));
+G("g_joke","Piadas","😂",1.49,()=>pick(["Porque é que o livro foi ao médico? Tinha muitas páginas em branco.","O que diz um zero a um oito? Belo cinto!","Qual é o cúmulo da paciência? Esperar sentado em pé."]));
+G("g_adv","Conselhos","🧭",1.49,()=>pick(["Dorme bem.","Pede ajuda quando precisares.","Começa pelo mais difícil.","Faz uma pausa e respira.","Guarda um pouco todos os meses."]));
+Q("q_math","Quiz Matemática","➗",0,()=>{const a=2+rnd(11),c=2+rnd(11),r=a*c;return[a+" × "+c+" = ?",r,r+a,r-c,r+1]});
+Q("q_cap","Quiz Capitais","🏛️",0,[["Capital de Portugal?","Lisboa","Porto","Coimbra","Faro"],["Capital de Espanha?","Madrid","Barcelona","Sevilha","Valência"],["Capital de França?","Paris","Lyon","Nice","Lille"],["Capital de Itália?","Roma","Milão","Veneza","Nápoles"],["Capital do Brasil?","Brasília","Rio de Janeiro","São Paulo","Salvador"],["Capital do Japão?","Tóquio","Quioto","Osaka","Nagoia"]]);
+Q("q_en","Quiz Inglês","🇬🇧",1.99,[["'Cat' em português?","Gato","Cão","Rato","Pato"],["'House'?","Casa","Cavalo","Hora","Hotel"],["'Water'?","Água","Vinho","Leite","Ar"],["'Book'?","Livro","Banco","Barco","Bola"],["'Night'?","Noite","Nove","Nariz","Ninho"],["'Friend'?","Amigo","Frio","Fogo","Fada"]]);
+Q("q_sci","Quiz Ciência","🔬",2.49,[["Planeta mais próximo do Sol?","Mercúrio","Vénus","Marte","Terra"],["Símbolo químico da água?","H2O","CO2","O2","NaCl"],["Quantos ossos tem um adulto?","206","180","250","300"],["Gás essencial para respirarmos?","Oxigénio","Hélio","Néon","Árgon"],["Maior planeta do Sistema Solar?","Júpiter","Saturno","Neptuno","Terra"]]);
+Q("q_pt","Quiz Portugal","🇵🇹",2.49,[["Rio mais longo de Portugal?","Tejo","Douro","Mondego","Minho"],["Ano da Revolução dos Cravos?","1974","1968","1980","1986"],["Maior ilha dos Açores?","São Miguel","Pico","Faial","Terceira"],["Moeda atual?","Euro","Escudo","Dólar","Libra"]]);
+Q("q_flag","Quiz Bandeiras","🏁",2.49,[["🇵🇹","Portugal","Polónia","Peru","Panamá"],["🇧🇷","Brasil","Bolívia","Brunei","Bulgária"],["🇯🇵","Japão","Jordânia","Jamaica","Jibuti"],["🇮🇹","Itália","Irlanda","Índia","Islândia"],["🇩🇪","Alemanha","Áustria","Bélgica","Dinamarca"],["🇨🇭","Suíça","Suécia","Sérvia","Singapura"]]);
+Q("q_ani","Quiz Animais","🦁",1.99,[["Maior animal terrestre?","Elefante","Girafa","Hipopótamo","Rinoceronte"],["Animal mais rápido em terra?","Chita","Leão","Cavalo","Antílope"],["Quantas patas tem uma aranha?","8","6","10","4"],["O que come o panda?","Bambu","Peixe","Carne","Frutos"],["Mamífero que voa?","Morcego","Coruja","Pardal","Águia"]]);
+L("l_shop","Compras","🛒",0);L("l_idea","Ideias","💡",0);L("l_mov","Filmes por ver","🎬",1.49);L("l_book","Livros","📚",1.49);L("l_goal","Metas","🏆",1.99);L("l_gift","Presentes","🎁",1.49);L("l_trip","Viagens","✈️",1.99);L("l_exp","Despesas","💶",3.49,1);L("l_rec","Receitas","🍳",1.99);L("l_bday","Aniversários","🎂",1.49);
+R("tm_stop","Cronómetro","⏱️",0,"Mede o tempo.",appStop);R("tm_cd","Temporizador","⏳",0,"Contagem decrescente.",appCount,5);R("tm_pomo","Pomodoro","🍅",1.99,"25 minutos de foco.",appCount,25);R("tm_hiit","Treino 30s","🏋️",1.49,"Intervalos de 30 segundos.",appCount,.5);
+R("m_clk","Relógio mundial","🌍",0,"Horas pelo mundo.",appClk);R("m_cal","Calendário","🗓️",0,"Calendário mensal.",appCal);
+GM("gm_mem","Memória","🧠",0,appMem);GM("gm_ttt","Jogo do galo","❌",0,appTtt);GM("gm_gue","Adivinha o número","❓",0,appGuess);GM("gm_rea","Reflexos","⚡",1.99,appReact);GM("gm_wh","Toupeiras","🐹",2.99,appWhack);GM("gm_rps","Pedra, papel, tesoura","✂️",1.99,appRps);GM("gm_clk","Clicker","⭐",3.99,appClick);GM("gm_han","Forca","🔤",2.99,appHang);GM("gm_hi","Maior ou menor","🃏",2.49,appHilo);GM("gm_du","Duelo de dados","🎲",2.49,appDuel);
+F("f_imc","IMC","⚖️",0,[["Peso (kg)"],["Altura (m)"]],(p,a)=>{const i=p/(a*a);return"IMC: "+i.toFixed(1)+" — "+(i<18.5?"abaixo do peso":i<25?"peso normal":i<30?"excesso de peso":"obesidade")});
+F("f_tip","Gorjeta","🍽️",0,[["Conta (€)"],["Gorjeta (%)",,10]],(c,t)=>"Gorjeta: "+eur(c*t/100)+"\nTotal: "+eur(c*(1+t/100)));
+F("f_dis","Descontos","🏷️",1.49,[["Preço (€)"],["Desconto (%)"]],(p,d)=>"Preço final: "+eur(p*(1-d/100))+"\nPoupas: "+eur(p*d/100));
+F("f_pct","Percentagens","📊",1.49,[["Valor"],["Percentagem (%)"]],(v,p)=>p+"% de "+v+" = "+(v*p/100));
+F("f_jur","Juros compostos","📈",2.49,[["Capital (€)"],["Taxa anual (%)"],["Anos"]],(c,t,a)=>"Final: "+eur(c*Math.pow(1+t/100,a)));
+F("f_age","Idade","🎈",1.49,[["Data de nascimento","date"]],d=>{const n=new Date(d),h=new Date();let a=h.getFullYear()-n.getFullYear();if(h<new Date(h.getFullYear(),n.getMonth(),n.getDate()))a--;return a+" anos"});
+F("f_days","Dias entre datas","📅",1.49,[["De","date"],["Até","date"]],(a,c)=>Math.round((new Date(c)-new Date(a))/864e5)+" dias");
+F("f_split","Dividir conta","🍕",1.49,[["Total (€)"],["Pessoas",,2]],(t,n)=>eur(t/n)+" por pessoa");
+F("f_avg","Média","🧮",1.49,[["Números (separados por vírgula)","text"]],s=>{const a=s.split(",").map(Number).filter(x=>!isNaN(x));return a.length?"Média: "+a.reduce((x,y)=>x+y)/a.length:"Sem números"});
+F("f_pit","Pitágoras","📐",1.99,[["Cateto a"],["Cateto b"]],(a,c)=>"Hipotenusa: "+Math.hypot(a,c).toFixed(4));
+F("f_quad","Equação 2º grau","🧩",2.49,[["a",,1],["b"],["c"]],(a,b,c)=>{const d=b*b-4*a*c;return d<0?"Sem raízes reais":"x = "+((-b+Math.sqrt(d))/(2*a)).toFixed(4)+"  e  x = "+((-b-Math.sqrt(d))/(2*a)).toFixed(4)});
+F("f_circ","Círculo","⭕",1.49,[["Raio"]],r=>"Área: "+(Math.PI*r*r).toFixed(3)+"\nPerímetro: "+(2*Math.PI*r).toFixed(3));
+F("f_trip","Custo de viagem","⛽",1.99,[["Distância (km)"],["Consumo (L/100km)",,6],["Preço (€/L)",,1.7]],(d,c,p)=>"Custo: "+eur(d*c/100*p));
+F("f_iva","IVA","🧾",1.49,[["Valor sem IVA (€)"],["Taxa (%)",,23]],(v,t)=>"IVA: "+eur(v*t/100)+"\nTotal: "+eur(v*(1+t/100)));
+F("f_vel","Velocidade média","🚗",1.49,[["Distância (km)"],["Tempo (h)"]],(d,t)=>(d/t).toFixed(2)+" km/h");
+F("f_reg","Regra de três","✖️",1.49,[["A"],["B"],["C"]],(a,b,c)=>"X = "+(b*c/a));
+F("f_prime","É primo?","🔍",1.49,[["Número"]],n=>{if(n<2||n%1)return"Não";for(let i=2;i*i<=n;i++)if(n%i===0)return"Não (divisível por "+i+")";return"Sim, é primo"});
+
+/* ---------- sistema ---------- */
+function setBal(){$("#bal").textContent=eur(U.balance)}
+async function refreshBal(){try{const r=await sb("users?id=eq."+encodeURIComponent(U.id)+"&select="+UC+"&limit=1");if(r&&r[0]){Object.assign(U,r[0]);setBal()}else if(r&&!r.length)logout()}catch(e){console.error(e)}}
+function renderDesk(){const ks=installed();$("#icons").innerHTML=ks.map(k=>`<div class="di" data-k="${k}"><i>${APPS[k].i}</i>${APPS[k].n}</div>`).join("");
+ $("#icons").querySelectorAll(".di").forEach(e=>e.ondblclick=()=>openApp(e.dataset.k));
+ $("#start").innerHTML=`<div class="u"><b>${esc(U.display_name)}</b><small>@${esc(U.username)} · NP ${esc(U.np)}</small></div>`+ks.map(k=>`<button class="si" data-k="${k}"><span>${APPS[k].i}</span>${APPS[k].n}</button>`).join("")+'<button class="si" data-k="_out"><span>⏻</span>Terminar sessão</button>';
+ $("#start").querySelectorAll(".si").forEach(e=>e.onclick=()=>e.dataset.k==="_out"?logout():openApp(e.dataset.k))}
+async function startOS(u){U=u;localStorage.setItem("nlos_session",U.id);localStorage.setItem("nlos_state","ready");initFS();
+ cfg=LS("nlos_cfg_"+U.id,{});try{const r=await sb("os_settings?user_id=eq."+encodeURIComponent(U.id)+"&select=data&limit=1");if(r&&r[0]&&r[0].data)cfg={...cfg,...r[0].data}}catch{}
+ if(cfg.theme)setTheme(cfg.theme,1);$("#boot").classList.add("hid");$("#oobe").classList.add("hid");
+ own=new Set(LS("nlos_own_"+U.id,[]));try{const r=await sb("os_purchases?user_id=eq."+encodeURIComponent(U.id)+"&select=app_id");r&&r.forEach(x=>own.add(x.app_id))}catch{}
+ [...own].forEach(k=>APPS[k]||own.delete(k));
+ $("#login").classList.add("hid");$("#os").classList.remove("hid");setBal();renderDesk();
+ openApp("store");
+ clearInterval(window.pt);window.pt=setInterval(refreshBal,20000)}
+function logout(){clearInterval(window.pt);localStorage.removeItem("nlos_session");wins.slice().forEach(w=>w.el.querySelector(".x").click());U=null;$("#os").classList.add("hid");$("#login").classList.remove("hid");$("#lp").value=""}
+$("#lf").onsubmit=async e=>{e.preventDefault();const u=$("#lu").value.trim(),p=$("#lp").value;if(!u||!p)return;$("#lb").disabled=true;
+ try{const r=await sb("users?username_lower=eq."+encodeURIComponent(norm(u))+"&select="+UC+",password_hash&limit=1"),row=r&&r[0];
+  if(!row||row.password_hash!==await hash(u,p))toast("Não foi possível entrar","Confirma o utilizador e a palavra-passe.");
+  else{delete row.password_hash;await startOS(row)}
+ }catch(err){console.error(err);toast("Erro de ligação","Não foi possível falar com o Supabase.")}finally{$("#lb").disabled=false}};
+$("#sb").onclick=e=>{e.stopPropagation();$("#start").classList.toggle("hid")};
+$("#start").onclick=e=>e.stopPropagation();$("#desk").onclick=()=>$("#start").classList.add("hid");
+$("#bal").onclick=()=>openApp("store");
+setInterval(()=>$("#clk").textContent=new Date().toLocaleTimeString("pt-PT",{hour:"2-digit",minute:"2-digit"}),1000);
+setTheme(localStorage.getItem("nlos_theme")||"neb");
+(async()=>{const id=localStorage.getItem("nlos_session");
+ if(id){try{const r=await sb("users?id=eq."+encodeURIComponent(id)+"&select="+UC+"&limit=1");if(r&&r[0]){await startOS(r[0]);return}}catch{}}
+ const st=localStorage.getItem("nlos_state");st==="ready"?$("#login").classList.remove("hid"):st==="oobe"?oobe():bootTerm()})();
+</script></body></html>
